@@ -18,8 +18,11 @@ if (!isset($_GET['go'])) {
 	$_SESSION['login'] = $_GET['login'];
 	$_SESSION['passwd'] = $_GET['passwd'];
 	// реєструємо змінні login та passwd як глобальні змінні для цієї сесії
-	include "array.php";
-	foreach ($loginArr as $login => $password) {
+    $filename = "array.txt";
+    $file = fopen($filename, "r+");
+    $content = fread($file, filesize($filename));
+    $arr = unserialize($content);
+	foreach ($arr as $login => $password) {
 		if ($_GET['login'] == $login && password_verify($_GET['passwd'], $password)) {
 			$_SESSION['authorized'] = 1;
 			header("Location: secret_info.php");
@@ -34,4 +37,5 @@ if (!isset($_GET['go'])) {
 			ob_end_flush();
 		}
 	}
+	fclose($file);
 }
