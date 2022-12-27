@@ -14,7 +14,7 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 </head>
 <!-- домашняя страничка-->
 <?php
-print_r($_SESSION); // виводимо змінні сесії 
+// print_r($_SESSION); // виводимо змінні сесії 
 ?>
 <br><a href="authorize.php">Вход</a>
 <br><a href="reg.php">Регистрация</a>

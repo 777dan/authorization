@@ -18,24 +18,33 @@ if (!isset($_GET['go'])) {
 	$_SESSION['login'] = $_GET['login'];
 	$_SESSION['passwd'] = $_GET['passwd'];
 	// реєструємо змінні login та passwd як глобальні змінні для цієї сесії
-    $filename = "array.txt";
-    $file = fopen($filename, "r+");
-    $content = fread($file, filesize($filename));
-    $arr = unserialize($content);
+	$filename = "array.txt";
+	$file = fopen($filename, "r+");
+	$content = fread($file, filesize($filename));
+	$arr = unserialize($content);
+	$countBool = false;
 	foreach ($arr as $login => $password) {
 		if ($_GET['login'] == $login && password_verify($_GET['passwd'], $password)) {
+			$countBool = true;
+			// echo "$login: $password <br>";
 			$_SESSION['authorized'] = 1;
 			header("Location: secret_info.php");
 			ob_end_flush();
 			break;
 			// перенаправляємо на сторінку secret_info.php
-		} 
-		else {
-			$_SESSION['err'] = 1;
-			unset($_SESSION['authorized']);
-			header("Location: authorize.php");
-			ob_end_flush();
+		} else {
+			$countBool = false;
+			// $_SESSION['err'] = 1;
+			// unset($_SESSION['authorized']);
+			// header("Location: authorize.php");
+			// ob_end_flush();
 		}
+	}
+	if ($countBool == false) {
+		$_SESSION['err'] = 1;
+		unset($_SESSION['authorized']);
+		header("Location: authorize.php");
+		ob_end_flush();
 	}
 	fclose($file);
 }

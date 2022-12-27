@@ -10,6 +10,9 @@ if (!isset($_SESSION['authorized']))  // перевіряємо правильн
 <head><title>Secret info</title></head>
  <!-- здесь располагается "секретна інформація"-->
  <?php 
-    print_r($_SESSION);// виводимо змінні сесії ?> 
+ if (isset($_SESSION['login'])){
+    echo "Здравствуйте, " . $_SESSION['login'] . ". Вход в аккаунт успешно завершён!";
+}
+    // print_r($_SESSION);// виводимо змінні сесії ?> 
     <br><a href="index.php">На главную</a>
 </html>

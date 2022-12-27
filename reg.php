@@ -7,6 +7,7 @@ Password: <input type='password' name='passwdReg'>
 </form>";
 } else {
     $loginReg = $_GET['loginReg'];
+    echo "Hello $loginReg";
     $passwdReg = $_GET['passwdReg'];
     $filename = "array.txt";
     $file = fopen($filename, "r+");
